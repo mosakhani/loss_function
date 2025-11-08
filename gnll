@@ -1,0 +1,16 @@
+# Gaussian negative log likelihood loss function (gnll) old ver
+def gnll(y_true, y_pred):
+    eps = 1e-6
+    mu = y_pred[:, 0]
+    log_var = y_pred[:, 1]
+    var = K.exp(log_var) + eps
+    return K.mean(0.5 * (log_var + K.square(y_true - mu) / var))
+
+
+# Gaussian negative log likelihood loss function (gnll) new ver
+def gnll(y_true, y_pred):
+    eps = 1e-6
+    mu = y_pred[:, 0]
+    log_var = y_pred[:, 1]
+    var = tf.exp(log_var) + eps
+    return tf.reduce_mean(0.5 * (log_var + tf.square(y_true - mu) / var))
